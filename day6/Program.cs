@@ -1,7 +1,5 @@
 ﻿var signal = File.ReadAllText("day6input.txt");
 
-var signalArray = signal.ToCharArray();
-
 var part1 = DistinctPosition(4);
 Console.WriteLine($"Part 1: {part1}");
 
@@ -10,7 +8,7 @@ Console.WriteLine($"Part 2: {part2}");
 
 int DistinctPosition(int range)
 {
-    for (int i = 0; i < signalArray.Length; i++)
+    for (int i = 0; i < signal.Length; i++)
     {
         var distinctSignalCount = signal.Skip(i).Take(range).Distinct().Count();
         if (distinctSignalCount == range)
