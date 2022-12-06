@@ -2,13 +2,13 @@
 
 var signalArray = signal.ToCharArray();
 
-var part1 = DistinctPoisition(4);
+var part1 = DistinctPosition(4);
 Console.WriteLine($"Part 1: {part1}");
 
-var part2 = DistinctPoisition(14);
+var part2 = DistinctPosition(14);
 Console.WriteLine($"Part 2: {part2}");
 
-int DistinctPoisition(int range)
+int DistinctPosition(int range)
 {
     for (int i = 0; i < signalArray.Length; i++)
     {
