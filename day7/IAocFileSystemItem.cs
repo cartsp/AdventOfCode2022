@@ -28,14 +28,7 @@ public class AocDirectory : IAocFileSystemItem
             _size = 0;
             foreach (var item in _items)
             {
-                if (item is AocDirectory temp)
-                {
-                    _size += temp.Size;
-                }
-                else
-                {
-                    _size += item.Size;
-                }
+                _size += item.Size;
             }
 
             return _size;
@@ -57,8 +50,8 @@ public class AocDirectory : IAocFileSystemItem
 
     public IEnumerable<AocDirectory>? GetAllSubDirectories()
     {
-        List<AocDirectory> subDirs = new List<AocDirectory>();
-        subDirs.AddRange(_items.OfType<AocDirectory>());
+        var subDirs = _items.OfType<AocDirectory>().ToList();
+        
         foreach (var dir in _items.OfType<AocDirectory>())
         {
             var subs = dir.GetAllSubDirectories();

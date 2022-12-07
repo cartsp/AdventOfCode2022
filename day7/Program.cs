@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using day7;
 
 var ioInstructions = File.ReadAllLines("day7input.txt");
@@ -20,7 +18,6 @@ AocDirectory ParseInstructions()
     var fs = new AocDirectory("/", null);
     AocDirectory currentDirectory = fs;
     
-    string lastIns;
     foreach (var ins in ioInstructions.Skip(1))
     {
         if (ins.StartsWith("$ cd"))
@@ -35,7 +32,6 @@ AocDirectory ParseInstructions()
                 currentDirectory = currentDirectory.GoToSubDirectory(dirName);
             }
             continue;
-            ;
         }
         if (ins.StartsWith("$ ls"))
         {
@@ -48,13 +44,18 @@ AocDirectory ParseInstructions()
             continue;
         }
 
-        var regexMatches = Regex.Matches(ins, @"\d+");
-        var fileSize = long.Parse(regexMatches.First().Value);
-        var start = regexMatches.First().Value.Length + 1;
-        var len = ins.Length - regexMatches.First().Value.Length -1;
-        var newFile = new AocFile(fileSize, ins.Substring(start, len), currentDirectory);
-        currentDirectory.Add(newFile);
+        AddFile(ins, currentDirectory);
     }
 
     return fs;
+}
+
+void AddFile(string s, AocDirectory aocDirectory)
+{
+    var regexMatches = Regex.Matches(s, @"\d+");
+    var fileSize = long.Parse(regexMatches.First().Value);
+    var start = regexMatches.First().Value.Length + 1;
+    var len = s.Length - regexMatches.First().Value.Length - 1;
+    var newFile = new AocFile(fileSize, s.Substring(start, len), aocDirectory);
+    aocDirectory.Add(newFile);
 }
